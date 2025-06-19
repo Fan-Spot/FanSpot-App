@@ -1,5 +1,5 @@
 import * as S from './style';
-import {Back} from '../icons';
+import {Back} from '../../icons';
 
 interface HeaderTitleProps {
   title: string;

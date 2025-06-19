@@ -1,8 +1,8 @@
 import styled from 'styled-components/native';
-import {theme} from '../../styles';
+import {theme} from '../../../styles';
 
 export const HeaderContainer = styled.View`
-  position: relative; 
+  position: relative;
   width: 100%;
   height: 55px;
   background-color: ${theme.background};
