@@ -1,5 +1,9 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import {
+	DarkTheme,
+	DefaultTheme,
+	ThemeProvider,
+} from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -8,52 +12,66 @@ import 'react-native-reanimated';
 
 import { useColorScheme } from '@/components/useColorScheme';
 
-export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
-} from 'expo-router';
+export { ErrorBoundary } from 'expo-router';
 
-export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
-};
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const [loaded, error] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-    ...FontAwesome.font,
-  });
+	const [loaded, error] = useFonts({
+		'Gotham Ultra Italic': require('../assets/fonts/Gotham Ultra Italic.ttf'),
+		'Giants-Bold': require('../assets/fonts/Giants-Bold.otf'),
+		'Giants-Inline': require('../assets/fonts/Giants-Inline.otf'),
+		'Giants-Regular': require('../assets/fonts/Giants-Regular.otf'),
+		'Pretendard-Light': require('../assets/fonts/Pretendard-Light.otf'),
+		'Pretendard-Regular': require('../assets/fonts/Pretendard-Regular.otf'),
+		'Pretendard-Bold': require('../assets/fonts/Pretendard-Bold.otf'),
+		'Pretendard-Medium': require('../assets/fonts/Pretendard-Medium.otf'),
+		'Pretendard-SemiBold': require('../assets/fonts/Pretendard-SemiBold.otf'),
+	});
 
-  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
-  useEffect(() => {
-    if (error) throw error;
-  }, [error]);
+	useEffect(() => {
+		if (error) throw error;
+	}, [error]);
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
+	useEffect(() => {
+		if (loaded) {
+			SplashScreen.hideAsync();
+		}
+	}, [loaded]);
 
-  if (!loaded) {
-    return null;
-  }
+	if (!loaded) {
+		return null;
+	}
 
-  return <RootLayoutNav />;
+	return <RootLayoutNav />;
 }
 
 function RootLayoutNav() {
-  const colorScheme = useColorScheme();
+	const colorScheme = useColorScheme();
 
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-      </Stack>
-    </ThemeProvider>
-  );
+	return (
+		<ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+			<Stack
+				screenOptions={{
+					animation: 'none',
+				}}
+			>
+				<Stack.Screen name='login/index' options={{ headerShown: false }} />
+				<Stack.Screen name='name/index' options={{ headerShown: false }} />
+				<Stack.Screen name='complete/index' options={{ headerShown: false }} />
+				<Stack.Screen name='home/index' options={{ headerShown: false }} />
+				<Stack.Screen name='register/index' options={{ headerShown: false }} />
+				<Stack.Screen name='artist/[id]' options={{ headerShown: false }} />
+				<Stack.Screen name='concert/[id]' options={{ headerShown: false }} />
+				<Stack.Screen name='community/index' options={{ headerShown: false }} />
+				<Stack.Screen name='community/write' options={{ headerShown: false }} />
+				<Stack.Screen name='artist/index' options={{ headerShown: false }} />
+				<Stack.Screen name='community/[id]' options={{ headerShown: false }} />
+				<Stack.Screen
+					name='modal'
+					options={{ presentation: 'modal', animation: 'none' }}
+				/>
+			</Stack>
+		</ThemeProvider>
+	);
 }
