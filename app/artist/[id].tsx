@@ -27,9 +27,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 const artistData = {
-	christopher: {
+	ado: {
 		name: 'Ado',
-		image: require('@/assets/images/artist.png'),
+		image: require('@/assets/images/ado.png'),
 		songs: 226,
 		participated: 3,
 		composed: 3,

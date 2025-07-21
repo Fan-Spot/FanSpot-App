@@ -1,4 +1,3 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
 import {
 	DarkTheme,
 	DefaultTheme,
@@ -13,7 +12,6 @@ import 'react-native-reanimated';
 import { useColorScheme } from '@/components/useColorScheme';
 
 export { ErrorBoundary } from 'expo-router';
-
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {

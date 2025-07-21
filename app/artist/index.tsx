@@ -33,73 +33,96 @@ const popularArtists = [
 	},
 ];
 
-const recommendedArtists = Array(4).fill({
-	id: '1',
-	name: 'Christopher',
-	image: require('@/assets/images/christopher.png'),
-	genre: 'POP, 국외영화, 월드뮤직',
-});
+const recommendedArtists = [
+	{
+		id: '1',
+		name: 'Christopher',
+		image: require('@/assets/images/christopher.png'),
+		genre: 'POP, 국외영화, 월드뮤직',
+	},
+	{
+		id: '2',
+		name: 'Ado',
+		image: require('@/assets/images/ado.png'),
+		genre: 'J-pop, 랩/힙합',
+	},
+	{
+		id: '3',
+		name: 'IU',
+		image: require('@/assets/images/sample3.png'),
+		genre: 'K-pop, 발라드',
+	},
+];
 
 export default function ArtistListScreen() {
 	const router = useRouter();
 
 	return (
-		<SafeAreaView style={styles.container}>
-			<View style={styles.header}>
-				<Image
-					source={require('@/assets/images/logo.png')}
-					style={styles.logo}
-				/>
-			</View>
-			<Header title='아티스트' />
+		<SafeAreaView style={styles.safeArea}>
+			<ScrollView style={styles.container}>
+				<View style={styles.header}>
+					<Image
+						source={require('@/assets/images/logo.png')}
+						style={styles.logo}
+					/>
+				</View>
 
-			<View style={styles.searchBox}>
-				<TextInput
-					style={styles.input}
-					placeholder='아티스트명을 입력해주세요.'
-					placeholderTextColor={theme.gray400}
-				/>
-				<Search />
-			</View>
+				<Header title='아티스트' />
 
-			<ScrollView contentContainerStyle={{ paddingBottom: 120 }}>
-				<Text style={styles.sectionTitle}>인기 아티스트</Text>
-				<ScrollView
-					horizontal
-					showsHorizontalScrollIndicator={false}
-					style={styles.popularScroll}
-				>
-					{popularArtists.map((artist, idx) => (
-						<View key={idx} style={styles.popularCard}>
+				<View style={styles.searchBox}>
+					<TextInput
+						style={styles.input}
+						placeholder='아티스트명을 입력해주세요.'
+						placeholderTextColor={theme.gray400}
+					/>
+					<Search />
+				</View>
+
+				<View style={styles.section}>
+					<Text style={styles.subtitle}>인기 아티스트</Text>
+					{popularArtists.map((artist) => (
+						<TouchableOpacity
+							key={artist.id}
+							style={styles.artistCard}
+							onPress={() => router.push(`/artist/${artist.id}`)}
+						>
 							<Image source={artist.image} style={styles.artistImage} />
-							<View style={styles.popularTextWrapper}>
+							<View>
 								<Text style={styles.artistName}>{artist.name}</Text>
-								<Text style={styles.genre}>{artist.genre}</Text>
+								<Text style={styles.artistGenre}>{artist.genre}</Text>
 							</View>
-						</View>
-					))}
-				</ScrollView>
-
-				<Text style={styles.sectionTitle}>추천 아티스트</Text>
-				<View style={styles.recommendList}>
-					{recommendedArtists.map((artist, idx) => (
-						<View key={idx} style={styles.recommendItem}>
-							<Image source={artist.image} style={styles.recommendImage} />
-							<View style={styles.recommendTextWrapper}>
-								<Text style={styles.artistName}>{artist.name}</Text>
-								<Text style={styles.genre}>{artist.genre}</Text>
-							</View>
-						</View>
+						</TouchableOpacity>
 					))}
 				</View>
-			</ScrollView>
 
-			<TabBar />
+				<View style={styles.section}>
+					<Text style={styles.subtitle}>추천 아티스트</Text>
+					{recommendedArtists.map((artist) => (
+						<TouchableOpacity
+							key={artist.id}
+							style={styles.artistCard}
+							onPress={() => router.push(`/artist/${artist.id}`)}
+						>
+							<Image source={artist.image} style={styles.artistImage} />
+							<View>
+								<Text style={styles.artistName}>{artist.name}</Text>
+								<Text style={styles.artistGenre}>{artist.genre}</Text>
+							</View>
+						</TouchableOpacity>
+					))}
+				</View>
+
+				<TabBar />
+			</ScrollView>
 		</SafeAreaView>
 	);
 }
 
 const styles = StyleSheet.create({
+	safeArea: {
+		flex: 1,
+		backgroundColor: theme.background,
+	},
 	container: {
 		flex: 1,
 		backgroundColor: theme.background,
@@ -130,71 +153,37 @@ const styles = StyleSheet.create({
 		color: theme.white,
 		fontFamily: 'Pretendard-Regular',
 	},
-	sectionTitle: {
-		fontSize: 22,
-		fontFamily: 'Pretendard-Bold',
-		color: theme.white,
-		marginHorizontal: 20,
-		marginBottom: 18,
-		lineHeight: 24,
-	},
-	popularScroll: {
-		paddingLeft: 20,
+	section: {
+		paddingHorizontal: 20,
 		marginBottom: 24,
 	},
-	popularCard: {
-		width: 151,
-		paddingVertical: 16,
-		paddingHorizontal: 14,
-		borderRadius: 4,
-		borderWidth: 1,
-		borderColor: theme.gray400,
-		backgroundColor: theme.gray700,
-		marginRight: 12,
+	subtitle: {
+		fontSize: 20,
+		color: theme.white,
+		fontFamily: 'Pretendard-Bold',
 		marginBottom: 20,
 	},
-
-	popularTextWrapper: {
-		alignItems: 'flex-start',
+	artistCard: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		marginBottom: 14,
 	},
 	artistImage: {
-		width: 92,
-		height: 94,
-		borderRadius: 2,
-		marginBottom: 12,
-		alignSelf: 'center',
+		width: 57,
+		height: 58,
+		borderRadius: 4,
+		marginRight: 12,
 	},
 	artistName: {
 		fontSize: 14,
-		fontFamily: 'Giants-Bold',
 		color: theme.white,
-		lineHeight: 21,
+		marginBottom: 6,
+		fontFamily: 'Giants-Bold',
 	},
-	genre: {
+	artistGenre: {
 		fontSize: 12,
-		fontFamily: 'Pretendard-Regular',
 		color: theme.gray50,
-		marginTop: 6,
+		fontFamily: 'Pretendard-Regular',
 		lineHeight: 18,
-	},
-	recommendList: {
-		paddingHorizontal: 20,
-	},
-	recommendItem: {
-		flexDirection: 'row',
-		alignItems: 'center',
-		paddingVertical: 12,
-		borderBottomWidth: 0.5,
-		borderBottomColor: theme.gray700,
-	},
-	recommendImage: {
-		width: 56,
-		height: 56,
-		borderRadius: 4,
-		marginRight: 12,
-	},
-	recommendTextWrapper: {
-		flex: 1,
-		justifyContent: 'center',
 	},
 });
