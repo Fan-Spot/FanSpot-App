@@ -54,12 +54,6 @@ export default function ConcertDetail() {
 			genre: 'J-pop, 랩/힙합',
 			image: require('@/assets/images/sample3.png'),
 		},
-		{
-			id: 'christopher',
-			name: 'Christopher',
-			genre: 'POP, 국영어화, 월드뮤직',
-			image: require('@/assets/images/artist.png'),
-		},
 	];
 
 	return (

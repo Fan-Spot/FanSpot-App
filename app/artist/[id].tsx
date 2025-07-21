@@ -28,7 +28,7 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 
 const artistData = {
 	christopher: {
-		name: 'Christopher',
+		name: 'Ado',
 		image: require('@/assets/images/artist.png'),
 		songs: 226,
 		participated: 3,
